@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Medeis</title>
+    <link>https://www.medeis.io/fr/blog/</link>
+    <description>Recent content in Blogs on Medeis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-fr</language>
+    <managingEditor>sales@medeis.io (medeis)</managingEditor>
+    <webMaster>sales@medeis.io (medeis)</webMaster>
+    <copyright>Copyright &amp;copy; 2020 Designed by [Themefisher](https://themefisher.com) &amp; Developed by [Gethugothemes](https://gethugothemes.com)</copyright>
+    <lastBuildDate>Thu, 19 Oct 2023 10:13:12 +0000</lastBuildDate>
+    <atom:link href="https://www.medeis.io/fr/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Relais NTLM : De SMBRelay aux mesures de mitigation modernes</title>
+      <link>https://www.medeis.io/fr/blog/ntlm-relaying-history/</link>
+      <pubDate>Thu, 19 Oct 2023 10:13:12 +0000</pubDate><author>sales@medeis.io (medeis)</author>
+      <guid>https://www.medeis.io/fr/blog/ntlm-relaying-history/</guid>
+      <description>Relais NTLM : De SMBRelay aux mesures de mitigation modernes NTLM (NT LAN Manager) est une pierre angulaire de la suite d&amp;rsquo;authentification de Microsoft.</description>
+    </item>
+  </channel>
+</rss>
