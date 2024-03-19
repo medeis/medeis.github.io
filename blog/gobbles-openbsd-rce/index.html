@@ -194,9 +194,9 @@
         <div class="post-single-content">
           <h1 id="reflecting-on-the-2002-gobbles-hack-of-openbsd-project-cybersecurity-then-and-now">Reflecting on the 2002 Gobbles Hack of OpenBSD project: Cybersecurity Then and Now</h1>
 <p>In 2002, Theo De Raadt, the leader of the OpenBSD project, was hit by a remote
-code execution (RCE) attack by a hacker collective known as Gobbles. Utilizing
-a buffer overflow vulnerability in the IRCIT IRC client, version 0.3.1, this
-event, disclosed at Defcon 10, shed light on the intricate challenges
+code execution (<code>RCE</code>) attack by a hacker collective known as Gobbles. Utilizing
+a <code>buffer overflow</code> vulnerability in the <code>IRCIT IRC client, version 0.3.1</code>, this
+event, disclosed at <code>Defcon 10</code>, shed light on the intricate challenges
 of software security and the dire consequences of vulnerabilities.</p>
 <p>The exploit potentially granted attackers access to the CVS repositories of
 OpenSSH, OpenBSD, and related projects, underlining the critical need for swift
@@ -205,10 +205,10 @@ to the dangers of software vulnerabilities but also as a springboard for
 a broader cybersecurity discussion.</p>
 <h3 id="the-vulnerability-unveiled">The Vulnerability Unveiled</h3>
 <p>A deep dive into the vulnerable code reveals the exploit mechanism, centered
-around the handling of the <code>INVITE</code> command in IRCIT. Key stages include the
-manipulation of the <code>from</code> field, leading to a stack buffer overflow and,
-potentially, arbitrary code execution. This technical breakdown underscores
-the necessity for rigorous code review and validation processes in software
+around the handling of the <code>INVITE</code> command in <code>IRCIT</code>. Key stages include the
+manipulation of the <code>from</code> field, leading to a <code>stack buffer overflow</code> and,
+potentially, <code>arbitrary code execution</code>. This technical breakdown underscores
+the necessity for rigorous <code>code review</code> and validation processes in software
 development.</p>
 <p>Let&rsquo;s dissect the vulnerable code snippet to understand the exploit mechanism:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">/* src/serverr.c */</span>
@@ -250,13 +250,13 @@ development.</p>
 <li>A stack buffer, sized at <code>MAXHOSTLEN</code> (165 bytes), is allocated.</li>
 <li>The <code>FIXIT</code> macro adjusts the <code>from</code> pointer, ignoring the first character
 if it is one of [ &lsquo;~&rsquo;, &lsquo;+&rsquo;, &lsquo;-&rsquo;, &lsquo;^&rsquo;, &lsquo;=&rsquo; ]</li>
-<li>This leads to a sprintf call, which can overflow the <code>s</code> buffer if <code>from</code>
+<li>This leads to a <code>sprintf</code> call, which can overflow the <code>s</code> buffer if <code>from</code>
 is properly crafted.</li>
 <li>The code then checks if the sender is ignored, which in the case of this
 exploit, they are not.</li>
 <li>Successfully overflowing the buffer and corrupting the stack could lead
-to arbitrary code execution via a corrupted saved EIP. As a reminder, this
-is an exploit from 2002, as such hardcoded addresses can be used since ASLR
+to <code>arbitrary code execution</code> via a corrupted <code>saved EIP</code>. As a reminder, this
+is an exploit from 2002, as such hardcoded addresses can be used since <code>ASLR</code>
 did not exist back then.</li>
 </ol>
 <h3 id="beyond-the-exploit-a-call-for-comprehensive-security">Beyond the Exploit: A Call for Comprehensive Security</h3>

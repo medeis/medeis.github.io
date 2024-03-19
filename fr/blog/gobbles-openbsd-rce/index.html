@@ -194,9 +194,9 @@
         <div class="post-single-content">
           <h1 id="réflexion-sur-la-compromission-du-projet-openbsd-par-gobbles-en-2002--la-cybersécurité-hier-et-aujourdhui">Réflexion sur la compromission du projet OpenBSD par Gobbles en 2002 : La cybersécurité hier et aujourd&rsquo;hui</h1>
 <p>En 2002, Theo De Raadt, le leader du projet OpenBSD, a été victime d&rsquo;une attaque
-d&rsquo;exécution de code à distance (RCE) par un collectif de hackers connu sous
-le nom de Gobbles. En utilisant une vulnérabilité de dépassement de tampon dans
-le client IRC IRCIT, version 0.3.1, cet événement, révélé à Defcon 10, a mis
+d&rsquo;exécution de code à distance (<code>RCE</code>) par un collectif de hackers connu sous
+le nom de Gobbles. En utilisant une vulnérabilité de <code>dépassement de tampon</code> dans
+le <code>client IRC IRCIT, version 0.3.1</code>, cet événement, révélé à <code>Defcon 10</code>, a mis
 en lumière les défis complexes de la sécurité logicielle et les conséquences
 graves des vulnérabilités.</p>
 <p>L&rsquo;exploit a potentiellement donné aux attaquants l&rsquo;accès aux dépôts CVS d&rsquo;OpenSSH,
@@ -206,10 +206,10 @@ des dangers des vulnérabilités logicielles, mais aussi comme une opportunité 
 une discussion plus large sur la cybersécurité.</p>
 <h3 id="la-vulnérabilité-dévoilée">La vulnérabilité dévoilée</h3>
 <p>Une analyse du code vulnérable révèle le mécanisme d&rsquo;exploitation, centré
-centré sur le traitement de la commande <code>INVITE</code> dans IRCIT. Les étapes clés
-comprennent la manipulation du champ <code>from</code>, conduisant à un débordement de
-la pile et, potentiellement à l&rsquo;exécution d&rsquo;un code arbitraire. Cette défaillance
-technique souligne la nécessité d&rsquo;un examen rigoureux du code et de processus
+centré sur le traitement de la commande <code>INVITE</code> dans <code>IRCIT</code>. Les étapes clés
+comprennent la manipulation du champ <code>from</code>, conduisant à un <code>débordement de la pile</code>
+et, potentiellement à <code>l'exécution d'un code arbitraire</code>. Cette défaillance
+technique souligne la nécessité <code>d'une revue de code</code> et de processus
 de validation dans le développement de logiciels.</p>
 <p>Décortiquons l&rsquo;extrait de code vulnérable pour comprendre le mécanisme d&rsquo;exploitation :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">/* src/serverr.c */</span>
@@ -251,14 +251,14 @@ de validation dans le développement de logiciels.</p>
 <li>Un tampon de pile, de taille <code>MAXHOSTLEN</code> (165 octets), est alloué.</li>
 <li>Le macro <code>FIXIT</code> ajuste le pointeur <code>from</code>, ignorant le premier caractère
 si c&rsquo;est l&rsquo;un des suivants : [ &lsquo;~&rsquo;, &lsquo;+&rsquo;, &lsquo;-&rsquo;, &lsquo;^&rsquo;, &lsquo;=&rsquo; ]</li>
-<li>Cela conduit à un appel à sprintf, qui peut déborder le tampon <code>s</code> si <code>from</code>
+<li>Cela conduit à un appel à <code>sprintf</code>, qui peut déborder le tampon <code>s</code> si <code>from</code>
 est construit correctement.</li>
 <li>Le code vérifie ensuite si l&rsquo;expéditeur est ignoré, ce qui, dans le cas de cet
 exploit, n&rsquo;est pas le cas.</li>
 <li>Réussir à déborder le tampon et à corrompre la pile pourrait conduire
-à l&rsquo;exécution de code arbitraire via un EIP enregistré corrompu. Pour rappel,
+à <code>l'exécution de code arbitraire</code> via un <code>EIP</code> enregistré corrompu. Pour rappel,
 il s&rsquo;agit d&rsquo;un exploit de 2002, à cette époque, des adresses codées en dur
-pouvaient être utilisées puisque ASLR n&rsquo;existait pas encore.</li>
+pouvaient être utilisées puisque <code>ASLR</code> n&rsquo;existait pas encore.</li>
 </ol>
 <h3 id="au-delà-de-lexploit--un-appel-à-une-sécurité-globale">Au-delà de l&rsquo;exploit : Un appel à une sécurité globale</h3>
 <p>Alors que le hack de Gobbles est ancré dans une vulnérabilité technique spécifique,
