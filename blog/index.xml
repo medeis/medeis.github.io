@@ -12,7 +12,7 @@
     <lastBuildDate>Tue, 19 Mar 2024 10:25:31 +0100</lastBuildDate>
     <atom:link href="https://www.medeis.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Gobbles OpenBSD Rce</title>
+      <title>Gobbles OpenBSD RCE</title>
       <link>https://www.medeis.io/blog/gobbles-openbsd-rce/</link>
       <pubDate>Tue, 19 Mar 2024 10:25:31 +0100</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
       <guid>https://www.medeis.io/blog/gobbles-openbsd-rce/</guid>
