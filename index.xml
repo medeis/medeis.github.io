@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Medeis</title>
+    <link>https://www.medeis.io/</link>
+    <description>Recent content on Medeis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>sales[at]medeis[dot]io (medeis)</managingEditor>
+    <webMaster>sales[at]medeis[dot]io (medeis)</webMaster>
+    <copyright>Copyright &amp;copy; 2020 Designed by [Themefisher](https://themefisher.com) &amp; Developed by [Gethugothemes](https://gethugothemes.com)</copyright>
+    <lastBuildDate>Tue, 19 Mar 2024 10:25:31 +0100</lastBuildDate>
+    <atom:link href="https://www.medeis.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gobbles OpenBSD Rce</title>
+      <link>https://www.medeis.io/blog/gobbles-openbsd-rce/</link>
+      <pubDate>Tue, 19 Mar 2024 10:25:31 +0100</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
+      <guid>https://www.medeis.io/blog/gobbles-openbsd-rce/</guid>
+      <description>Reflecting on the 2002 Gobbles Hack of OpenBSD project: Cybersecurity Then and Now In 2002, Theo De Raadt, the leader of the OpenBSD project, was hit by a remote code execution (RCE) attack by a hacker collective known as Gobbles.</description>
+    </item>
+    <item>
+      <title>NTLM Relaying: From SMBRelay to Modern Mitigations</title>
+      <link>https://www.medeis.io/blog/ntlm-relaying-history/</link>
+      <pubDate>Thu, 19 Oct 2023 10:13:12 +0000</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
+      <guid>https://www.medeis.io/blog/ntlm-relaying-history/</guid>
+      <description>NTLM Relaying: From SMBRelay to Modern Mitigations NTLM (NT LAN Manager) is a cornerstone in Microsoft’s authentication suite.</description>
+    </item>
+    <item>
+      <title>medeis</title>
+      <link>https://www.medeis.io/author/medeis/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
+      <guid>https://www.medeis.io/author/medeis/</guid>
+      <description>Hacking is all about breaking assumptions and making the impossible possible. It&amp;rsquo;s the art of imagination and infinite possibilities.</description>
+    </item>
+    <item>
+      <title>Thank You</title>
+      <link>https://www.medeis.io/thank-you/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
+      <guid>https://www.medeis.io/thank-you/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

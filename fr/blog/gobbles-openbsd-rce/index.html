@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+<head>
+	<meta charset="utf-8">
+	<title>Gobbles OpenBSD Rce</title>
+
+	<!-- mobile responsive meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="description" content="A blog talking about how Gobbles RCEd Theo de Raadt.">
+	
+	<meta name="author" content="map[email:sales[at]medeis[dot]io name:medeis]">
+	
+	
+        <meta name="theme-name" content="meghna-hugo" />
+	<meta name="generator" content="Hugo 0.125.0-DEV">
+
+	<!-- plugins -->
+
+	
+	
+	 	
+			
+			
+		
+	
+	 	
+			
+			
+		
+	
+	 	
+			
+			
+		
+	
+	 	
+			
+			
+		
+	
+
+	<!-- Custom stylesheet - for your changes -->
+	
+	
+
+	
+	
+	<link rel="stylesheet" href="/css/bundled.min.css">
+
+
+	<!-- Bootstrap -->
+	<link rel="preload" href="https://www.medeis.io/plugins/bootstrap/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="https://www.medeis.io/plugins/bootstrap/bootstrap.min.css"></noscript>
+
+	<!-- Main Stylesheet -->
+	
+	<link rel="preload" href="https://www.medeis.io/css/style.min.css" as="style" media="screen" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="https://www.medeis.io/css/style.min.css" media="screen"></noscript>
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="https://www.medeis.io/images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="https://www.medeis.io/images/favicon.png" type="image/x-icon">
+
+	
+	<link rel="preload" as="image" href="https://www.medeis.io/images/backgrounds/hero-area.webp" type="image/webp">
+</head>
+
+
+<body id="body" data-spy="scroll" data-target=".navbar" data-offset="55">
+  <div id="content">
+    
+
+
+<section class="sticky-top navigation">
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark">
+			<a class="navbar-brand p-0" href="/fr">
+				
+				<img class="lozad" data-src="https://www.medeis.io/images/logo.png" alt="Medeis" height="42">
+				
+			</a>
+
+			<button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navigation">
+				<ul class="navbar-nav ml-auto">
+					
+					
+					
+						
+						
+						
+						
+							<li class="nav-item">
+								<a class="nav-link" 
+								href="/fr#about">A propos de nous</a>
+							</li>
+						
+					
+						
+						
+						
+						
+							<li class="nav-item">
+								<a class="nav-link" 
+								href="/fr#services">Nos services</a>
+							</li>
+						
+					
+						
+						
+						
+						
+							<li class="nav-item">
+								<a class="nav-link" 
+								href="/fr#blog">Blog</a>
+							</li>
+						
+					
+						
+						
+						
+						
+							<li class="nav-item">
+								<a class="nav-link" 
+								href="/fr#contact">Contact</a>
+							</li>
+						
+					
+        		</ul>
+			</div>
+
+			<div class="navbar-nav" id="languages">
+				
+				<select id="select-language" aria-label="Select Language" onchange="location = this.value;">
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<option id="en" value="https://www.medeis.io/blog/gobbles-openbsd-rce/">🇬🇧 En</option>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<option id="fr" value="https://www.medeis.io/fr/blog/gobbles-openbsd-rce/" selected>🇫🇷 Fr
+					</option>
+					
+					
+					
+					
+				</select>
+				
+			</div>
+		</nav>
+	</div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 text-center">
+        <h1>Gobbles OpenBSD Rce</h1>
+        <ul class="list-inline mb-50">
+          <li class="list-inline-item"><a href="/fr/author/medeis/">medeis</a></li>
+          <li class="list-inline-item">mardi, mars 19, 2024</li>
+        </ul>
+        <img class="img-fluid mb-50 lozad" data-src="https://www.medeis.io/images/blog/blog-learn.jpeg" alt="blog-image">
+      </div>
+      <div class="col-lg-8 offset-lg-2">
+        <div class="post-single-content">
+          <h1 id="réflexion-sur-la-compromission-du-projet-openbsd-par-gobbles-en-2002--la-cybersécurité-hier-et-aujourdhui">Réflexion sur la compromission du projet OpenBSD par Gobbles en 2002 : La cybersécurité hier et aujourd&rsquo;hui</h1>
+<p>En 2002, Theo De Raadt, le leader du projet OpenBSD, a été victime d&rsquo;une attaque
+d&rsquo;exécution de code à distance (RCE) par un collectif de hackers connu sous
+le nom de Gobbles. En utilisant une vulnérabilité de dépassement de tampon dans
+le client IRC IRCIT, version 0.3.1, cet événement, révélé à Defcon 10, a mis
+en lumière les défis complexes de la sécurité logicielle et les conséquences
+graves des vulnérabilités.</p>
+<p>L&rsquo;exploit a potentiellement donné aux attaquants l&rsquo;accès aux dépôts CVS d&rsquo;OpenSSH,
+OpenBSD, et des projets associés, soulignant le besoin critique d&rsquo;une gestion
+rapide et efficace des vulnérabilités. Ce cas sert non seulement d&rsquo;étude de cas
+des dangers des vulnérabilités logicielles, mais aussi comme une opportunité pour
+une discussion plus large sur la cybersécurité.</p>
+<h3 id="la-vulnérabilité-dévoilée">La vulnérabilité dévoilée</h3>
+<p>Une analyse du code vulnérable révèle le mécanisme d&rsquo;exploitation, centré
+centré sur le traitement de la commande <code>INVITE</code> dans IRCIT. Les étapes clés
+comprennent la manipulation du champ <code>from</code>, conduisant à un débordement de
+la pile et, potentiellement à l&rsquo;exécution d&rsquo;un code arbitraire. Cette défaillance
+technique souligne la nécessité d&rsquo;un examen rigoureux du code et de processus
+de validation dans le développement de logiciels.</p>
+<p>Décortiquons l&rsquo;extrait de code vulnérable pour comprendre le mécanisme d&rsquo;exploitation :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">/* src/serverr.c */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">STD_IRC_SERVER</span>(sINVITE)                                     <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>{
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>n,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>h,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>v;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> (n<span style="color:#f92672">=</span><span style="color:#a6e22e">splitn</span>(<span style="color:#f92672">&amp;</span>from), <span style="color:#f92672">!</span>from)  from<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;*@*&#34;</span>;                 <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">if</span> (v<span style="color:#f92672">=</span><span style="color:#a6e22e">splitw</span>(<span style="color:#f92672">&amp;</span>rest), ((rest)<span style="color:#f92672">&amp;&amp;</span>(<span style="color:#f92672">*</span>rest<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;:&#39;</span>)))  rest<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> ((mt_ptr<span style="color:#f92672">-&gt;</span>c_ignore<span style="color:#f92672">&amp;</span>IG_INVITE)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)                     <span style="color:#75715e">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">char</span> s[MAXHOSTLEN];                                    <span style="color:#75715e">// 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">FIXIT</span>(from);                                          <span style="color:#75715e">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">sprintf</span> (s, <span style="color:#e6db74">&#34;%s!%s&#34;</span>, n, from);                        <span style="color:#75715e">// 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">IsSheIgnored</span>(s, IG_INVITE))                      <span style="color:#75715e">// 7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span>;                                            <span style="color:#75715e">// 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span>;  <span style="color:#75715e">/* global invite-ignore in place */</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* str.h */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define FIXIT(x) \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(*(x)==&#39;~&#39;||*(x)==&#39;+&#39;||*(x)==&#39;-&#39;||*(x)==&#39;^&#39;||*(x)==&#39;=&#39;)?((x)++):((x))
+</span></span></span></code></pre></div><ol>
+<li>Le processus commence par le traitement d&rsquo;une commande INVITE.</li>
+<li>L&rsquo;attaquant peut contrôler le champ <code>from</code>, ce qui est crucial pour l&rsquo;exploit.</li>
+<li>Les invitations sont traitées à moins d&rsquo;être globalement ignorées.</li>
+<li>Un tampon de pile, de taille <code>MAXHOSTLEN</code> (165 octets), est alloué.</li>
+<li>Le macro <code>FIXIT</code> ajuste le pointeur <code>from</code>, ignorant le premier caractère
+si c&rsquo;est l&rsquo;un des suivants : [ &lsquo;~&rsquo;, &lsquo;+&rsquo;, &lsquo;-&rsquo;, &lsquo;^&rsquo;, &lsquo;=&rsquo; ]</li>
+<li>Cela conduit à un appel à sprintf, qui peut déborder le tampon <code>s</code> si <code>from</code>
+est construit correctement.</li>
+<li>Le code vérifie ensuite si l&rsquo;expéditeur est ignoré, ce qui, dans le cas de cet
+exploit, n&rsquo;est pas le cas.</li>
+<li>Réussir à déborder le tampon et à corrompre la pile pourrait conduire
+à l&rsquo;exécution de code arbitraire via un EIP enregistré corrompu. Pour rappel,
+il s&rsquo;agit d&rsquo;un exploit de 2002, à cette époque, des adresses codées en dur
+pouvaient être utilisées puisque ASLR n&rsquo;existait pas encore.</li>
+</ol>
+<h3 id="au-delà-de-lexploit--un-appel-à-une-sécurité-globale">Au-delà de l&rsquo;exploit : Un appel à une sécurité globale</h3>
+<p>Alors que le hack de Gobbles est ancré dans une vulnérabilité technique spécifique,
+il incite à une réflexion plus large sur les pratiques de cybersécurité. Le discours
+a tendance à se concentrer fortement sur l&rsquo;identification et la correction
+des vulnérabilités. Cependant, cette approche, bien qu&rsquo;essentielle, n&rsquo;est
+qu&rsquo;une facette d&rsquo;un défi multifacette. Cela pose la question : Le dialogue sur
+la cybersécurité est-il trop étroitement concentré sur les vulnérabilités ?</p>
+<p><strong>Remédiation et Prévention : Élargir l&rsquo;Horizon</strong></p>
+<ul>
+<li><strong>Pratiques de Développement Robustes</strong> : Mettre l&rsquo;accent sur le développement
+sécurisé dès le départ peut atténuer les risques d&rsquo;introduction de vulnérabilités
+ou de régressions.</li>
+<li><strong>Cadres de Sécurité Compréhensifs</strong> : Au-delà de la gestion des correctifs,
+l&rsquo;adoption de cadres de sécurité holistiques peut fournir un mécanisme de défense
+plus complet.</li>
+<li><strong>Éducation et Sensibilisation</strong> : Cultiver une culture de sensibilisation à
+la sécurité parmi les développeurs, les administrateurs et les utilisateurs
+peut significativement améliorer la résilience collective.</li>
+</ul>
+<p><strong>Aborder les Reverse Shells et les Backdoors</strong> :</p>
+<p>La discussion ne devrait pas s&rsquo;arrêter à la prévention de l&rsquo;accès non autorisé,
+mais aussi s&rsquo;étendre à la détection et la neutralisation des menaces telles que
+les reverse shells ou les backdoors qui pourraient déjà être en place. Mettre
+en œuvre des systèmes de surveillance avancés, la détection d&rsquo;anomalies et des
+audits réguliers du système sont des étapes cruciales dans cette direction.</p>
+<p>🚀🔒 <strong>Sécurité de la Mémoire : Une Perspective Moderne</strong></p>
+<p>Dans le contexte du hack de Gobbles, l&rsquo;importance de la sécurité de la mémoire
+ne peut être sous-estimée. L&rsquo;utilisation de langages comme Rust représente
+un changement significatif vers des pratiques de développement logiciel plus
+sûres. Selon un communiqué de presse récent de la Maison Blanche, la sécurité
+de la mémoire est une préoccupation cruciale, en particulier pour
+les exigences opérationnelles dans des domaines tels que les systèmes spatiaux.
+Rust, étant sécurisé en mémoire, offre une alternative prometteuse aux langages
+comme C et C++, qui ne sont pas sécurisés en mémoire mais ont été
+traditionnellement privilégiés pour leur performance et leur contrôle.</p>
+<p>La Maison Blanche souligne le potentiel de Rust pour améliorer la sécurité
+logicielle à travers la sécurité de la mémoire, en attente d&rsquo;une validation
+et du développement supplémentaire de chaînes d&rsquo;outils et de ressources éducatives.
+Cette perspective renforce la nécessité de considérer non seulement la remédiation
+immédiate des vulnérabilités, mais aussi l&rsquo;adoption de langages de programmation
+et de pratiques qui réduisent intrinsèquement le risque que de tels problèmes
+surviennent.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Le hack de Theo De Raadt en 2002 reste un rappel intéressant des enjeux liés
+à la cybersécurité. Alors que nous naviguons dans le milieu complexe de menaces
+et de défenses, il est impératif de favoriser des discussions qui vont au-delà
+de la simple gestion des vulnérabilités. S&rsquo;engager dans des conversations plus
+larges sur la conception sécurisée, la divulgation éthique et les mesures
+de sécurité proactives peut ouvrir la voie à un avenir numérique plus sûr.</p>
+<p><strong>Rejoignez la Discussion</strong> : Comment percevez-vous l&rsquo;équilibre entre la gestion
+des vulnérabilités et des stratégies de cybersécurité plus larges dans le paysage
+actuel ? Partagez vos idées et rejoignez la conversation sur l&rsquo;avancement
+des pratiques de cybersécurité.</p>
+<h2 id="références">RÉFÉRENCES</h2>
+<ol>
+<li><a href="https://youtu.be/DAJSxOzrD1g?feature=shared&t=2758">Defcon 10 Gobbles talk</a></li>
+<li><a href="https://packetstormsecurity.com/files/26259/ircit-3.1.txt.html">Gobbles Security Advisory - IrcIT v3.1</a></li>
+<li><a href="https://www.exploit-db.com/exploits/21537">The PoC</a></li>
+<li><a href="https://web.archive.org/web/20040805142542/http://www.asymmetrica.com/software/ircit/">IRCIT 0.3.1</a></li>
+<li><a href="https://www.whitehouse.gov/oncd/briefing-room/2024/02/26/press-release-technical-report/">White House Press Release on Technical Report for Memory Safety in Space Systems</a></li>
+</ol>
+<hr>
+<p><strong>Tags</strong>: #Cybersecurity #VulnerabilityManagement #SoftwareSecurity #EthicalDisclosure #OpenBSD #GobblesHack #MemorySafety #RustLang</p>
+
+        </div>
+        
+        
+
+<div class="social-share pt-4">
+	<h4>Partager:</h4>
+	
+	<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f" target="_blank"
+		rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+	
+	<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=Gobbles%20OpenBSD%20Rce&amp;url=https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f"
+		target="_blank" rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path
+						d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+	
+	<a class="resp-sharing-button__link" href="https://plus.google.com/share?url=https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f" target="_blank"
+		rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--google resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path
+						d="M11.37 12.93c-.73-.52-1.4-1.27-1.4-1.5 0-.43.03-.63.98-1.37 1.23-.97 1.9-2.23 1.9-3.57 0-1.22-.36-2.3-1-3.05h.5c.1 0 .2-.04.28-.1l1.36-.98c.16-.12.23-.34.17-.54-.07-.2-.25-.33-.46-.33H7.6c-.66 0-1.34.12-2 .35-2.23.76-3.78 2.66-3.78 4.6 0 2.76 2.13 4.85 5 4.9-.07.23-.1.45-.1.66 0 .43.1.83.33 1.22h-.08c-2.72 0-5.17 1.34-6.1 3.32-.25.52-.37 1.04-.37 1.56 0 .5.13.98.38 1.44.6 1.04 1.84 1.86 3.55 2.28.87.23 1.82.34 2.8.34.88 0 1.7-.1 2.5-.34 2.4-.7 3.97-2.48 3.97-4.54 0-1.97-.63-3.15-2.33-4.35zm-7.7 4.5c0-1.42 1.8-2.68 3.9-2.68h.05c.45 0 .9.07 1.3.2l.42.28c.96.66 1.6 1.1 1.77 1.8.05.16.07.33.07.5 0 1.8-1.33 2.7-3.96 2.7-1.98 0-3.54-1.23-3.54-2.8zM5.54 3.9c.33-.38.75-.58 1.23-.58h.05c1.35.05 2.64 1.55 2.88 3.35.14 1.02-.08 1.97-.6 2.55-.32.37-.74.56-1.23.56h-.03c-1.32-.04-2.63-1.6-2.87-3.4-.13-1 .08-1.92.58-2.5zM23.5 9.5h-3v-3h-2v3h-3v2h3v3h2v-3h3" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+	
+	<a class="resp-sharing-button__link" href="mailto:?subject=Gobbles%20OpenBSD%20Rce&amp;body=https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f" target="_self"
+		rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path
+						d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+	
+	<a class="resp-sharing-button__link"
+		href="https://reddit.com/submit/?url=https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f&amp;resubmit=true&amp;title=Gobbles%20OpenBSD%20Rce" target="_blank"
+		rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path
+						d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.75-1.64-6.07-1.72.08-1.1.4-3.05 1.52-3.7.72-.4 1.73-.24 3 .5C17.2 6.3 18.46 7.5 20 7.5c1.65 0 3-1.35 3-3s-1.35-3-3-3c-1.38 0-2.54.94-2.88 2.22-1.43-.72-2.64-.8-3.6-.25-1.64.94-1.95 3.47-2 4.55-2.33.08-4.45.7-6.1 1.72C4.86 8.98 3.96 8.5 3 8.5c-1.65 0-3 1.35-3 3 0 1.32.84 2.44 2.05 2.84-.03.22-.05.44-.05.66 0 3.86 4.5 7 10 7s10-3.14 10-7c0-.22-.02-.44-.05-.66 1.2-.4 2.05-1.54 2.05-2.84zM2.3 13.37C1.5 13.07 1 12.35 1 11.5c0-1.1.9-2 2-2 .64 0 1.22.32 1.6.82-1.1.85-1.92 1.9-2.3 3.05zm3.7.13c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9.8 4.8c-1.08.63-2.42.96-3.8.96-1.4 0-2.74-.34-3.8-.95-.24-.13-.32-.44-.2-.68.15-.24.46-.32.7-.18 1.83 1.06 4.76 1.06 6.6 0 .23-.13.53-.05.67.2.14.23.06.54-.18.67zm.2-2.8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm5.7-2.13c-.38-1.16-1.2-2.2-2.3-3.05.38-.5.97-.82 1.6-.82 1.1 0 2 .9 2 2 0 .84-.53 1.57-1.3 1.87z" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+	
+	<a class="resp-sharing-button__link" href="whatsapp://send?text=Gobbles%20OpenBSD%20Rce%20https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f" target="_blank"
+		rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path
+						d="M20.1 3.9C17.9 1.7 15 .5 12 .5 5.8.5.7 5.6.7 11.9c0 2 .5 3.9 1.5 5.6L.6 23.4l6-1.6c1.6.9 3.5 1.3 5.4 1.3 6.3 0 11.4-5.1 11.4-11.4-.1-2.8-1.2-5.7-3.3-7.8zM12 21.4c-1.7 0-3.3-.5-4.8-1.3l-.4-.2-3.5 1 1-3.4L4 17c-1-1.5-1.4-3.2-1.4-5.1 0-5.2 4.2-9.4 9.4-9.4 2.5 0 4.9 1 6.7 2.8 1.8 1.8 2.8 4.2 2.8 6.7-.1 5.2-4.3 9.4-9.5 9.4zm5.1-7.1c-.3-.1-1.7-.9-1.9-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1s-1.2-.5-2.3-1.4c-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6s.3-.3.4-.5c.2-.1.3-.3.4-.5.1-.2 0-.4 0-.5C10 9 9.3 7.6 9 7c-.1-.4-.4-.3-.5-.3h-.6s-.4.1-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.3-.3-.4-.6-.5z" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+	
+	<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Gobbles%20OpenBSD%20Rce&amp;url=https%3a%2f%2fwww.medeis.io%2ffr%2fblog%2fgobbles-openbsd-rce%2f"
+		target="_blank" rel="noopener" aria-label="">
+		<div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small">
+			<div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path
+						d="M.707 8.475C.275 8.64 0 9.508 0 9.508s.284.867.718 1.03l5.09 1.897 1.986 6.38a1.102 1.102 0 0 0 1.75.527l2.96-2.41a.405.405 0 0 1 .494-.013l5.34 3.87a1.1 1.1 0 0 0 1.046.135 1.1 1.1 0 0 0 .682-.803l3.91-18.795A1.102 1.102 0 0 0 22.5.075L.706 8.475z" />
+				</svg>
+			</div>
+		</div>
+	</a>
+
+</div>
+        
+        
+        <div class="mt-5">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  </div><!-- end Contact Area -->
+<footer id="footer" class="section-bg">
+	<div class="container">
+		<div class="row wow fadeInUp" data-wow-duration="500ms">
+			<div class="col-xl-12">
+
+				<!-- Footer Social Links -->
+				<div class="social-icon">
+					<ul class="list-inline">
+						
+						<li class="list-inline-item"><a href="https://github.com/medeis" aria-label="Medeis on GitHub" /><i class="ti-github"></i></a></li>
+						
+					</ul>
+				</div>
+
+				<!-- copyright -->
+				<div class="copyright text-center">
+					<a href="https://www.medeis.io/fr/">
+						<img src="https://www.medeis.io/images/logo.png" alt="Medeis" height="42" />
+					</a>
+					<br>
+					<p></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- /footer -->
+
+<!-- Google Map API -->
+
+
+<!-- reCAPTCHA API -->
+
+
+
+	
+	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-7F7GGJYMT8"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-7F7GGJYMT8');
+	</script>
+	
+
+	<!-- reCAPTCHA API -->
+	
+
+
+
+	<!-- JS Plugins -->
+	
+	
+		
+		
+	
+		
+		
+	
+		
+		
+	
+		
+		
+	
+		
+		
+	
+		
+		
+	
+		
+		
+	
+	<!-- Main Script -->
+	
+	
+
+	<!-- Bundle -->
+	
+	<script src="/js/bundle.min.6b212ae70a1be4c0fff3a7603b59e91ba43aad4929e85987ca4687d067b40e00ed44f9156a4a0543a7e84230f8c29839.js" integrity="sha384-ayEq5wob5MD/86dgO1npG6Q6rUkp6FmHykaH0Ge0DgDtRPkVakoFQ6foQjD4wpg5"></script>
+
+
+
+</body>
+
+</html>

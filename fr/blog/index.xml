@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Medeis</title>
+    <link>https://www.medeis.io/fr/blog/</link>
+    <description>Recent content in Blogs on Medeis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-fr</language>
+    <managingEditor>sales[at]medeis[dot]io (medeis)</managingEditor>
+    <webMaster>sales[at]medeis[dot]io (medeis)</webMaster>
+    <copyright>Copyright &amp;copy; 2020 Designed by [Themefisher](https://themefisher.com) &amp; Developed by [Gethugothemes](https://gethugothemes.com)</copyright>
+    <lastBuildDate>Tue, 19 Mar 2024 10:25:31 +0100</lastBuildDate>
+    <atom:link href="https://www.medeis.io/fr/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gobbles OpenBSD Rce</title>
+      <link>https://www.medeis.io/fr/blog/gobbles-openbsd-rce/</link>
+      <pubDate>Tue, 19 Mar 2024 10:25:31 +0100</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
+      <guid>https://www.medeis.io/fr/blog/gobbles-openbsd-rce/</guid>
+      <description>Réflexion sur la compromission du projet OpenBSD par Gobbles en 2002 : La cybersécurité hier et aujourd&amp;rsquo;hui En 2002, Theo De Raadt, le leader du projet OpenBSD, a été victime d&amp;rsquo;une attaque d&amp;rsquo;exécution de code à distance (RCE) par un collectif de hackers connu sous le nom de Gobbles.</description>
+    </item>
+    <item>
+      <title>Relais NTLM : De SMBRelay aux mesures de mitigation modernes</title>
+      <link>https://www.medeis.io/fr/blog/ntlm-relaying-history/</link>
+      <pubDate>Thu, 19 Oct 2023 10:13:12 +0000</pubDate><author>sales[at]medeis[dot]io (medeis)</author>
+      <guid>https://www.medeis.io/fr/blog/ntlm-relaying-history/</guid>
+      <description>Relais NTLM : De SMBRelay aux mesures de mitigation modernes NTLM (NT LAN Manager) est une pierre angulaire de la suite d&amp;rsquo;authentification de Microsoft.</description>
+    </item>
+  </channel>
+</rss>
